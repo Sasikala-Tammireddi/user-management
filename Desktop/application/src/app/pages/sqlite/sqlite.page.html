@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>SQLite Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="isMobileDevice">
+    <ion-item-sliding *ngFor="let user of userList">
+      <ion-item>
+        <ion-label>
+          <h2>{{user.name}}</h2>
+          <p>Email: {{user.email}}</p>
+          <p>Phone: {{user.phone}}</p>
+          <p>Lat: {{user.address.geo.lat}}, Lng: {{user.address.geo.lng}}</p>
+        </ion-label>
+        <ion-note slot="start">
+          {{user.id}}
+        </ion-note>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteUser(user.id)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="secondary" (click)="updateUser(user)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-row *ngIf="!isMobileDevice" class="ion-justify-content-center ion-align-items-center" style="height: 100%;">
+    <ion-col>
+      <p class="ion-text-center message">Current device is not a mobile. SQLite will support only in mobile devices.</p>
+    </ion-col>
+  </ion-row>
+</ion-content>
